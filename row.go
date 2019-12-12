@@ -14,11 +14,11 @@ import (
 //	}
 //
 //	func (d *MyData) Header() []string {
-//		return CreateHeader(d)
+//		return reporter.CreateHeader(d)
 //	}
 //
 //	func (d *MyData) Slice() []string {
-//		return MarshalCSV(d)
+//		return reporter.MarshalCSV(d)
 //	}
 type Row interface {
 	// Header should return a list of the column names to be included in the CSV report
@@ -40,11 +40,11 @@ func SetDateTimeFormat(format string) {
 // CreateHeader uses the "csv" struct tags to build the CSV header
 // v should be a struct with "csv" tags.
 // Example:
-// 	 type MyData struct {
-//		 Field1    string     `csv:"field_1"`
-//       IgnoreMe  chan int   `csv:"-"`
-//		 Field2    time.Time  `csv:"field_2"`
-//	 }
+//	type MyData struct {
+//		Field1   string    `csv:"field_1"`
+//		IgnoreMe chan int  `csv:"-"`
+//		Field2   time.Time `csv:"field_2"`
+//	}
 //
 // CreateHeader(MyData{}) will output []string{"field_1", "field_2"}, ignoring the "-" tag.
 //
