@@ -5,7 +5,7 @@ Reporter
 ### Features:
 * Define custom report structures via the `Row` interface
 * Generate report with or without CSV header
-* Save report to file, StdOut, output buffer - anything that implements a `io.Writer`
+* Save report to file, Stdout, output buffer - anything that implements a `io.Writer`
 
 ### Examples
 #### Basic use
