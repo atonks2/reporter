@@ -34,7 +34,7 @@ func main() {
 	}
 	defer reportFile.Close()
 
-	reportBuilder := report.New(reportFile)
+	reportBuilder := reporter.New(reportFile)
 	
 	// do lots of work to generate and add reporter rows
 	reportBuilder.AddRow(&ReportRow{
@@ -64,7 +64,22 @@ if err != nil {
 }
 defer reportFile.Close()
 
-reportBuilder := report.NewWithoutHeader(reportFile)
+reportBuilder := reporter.NewWithoutHeader(reportFile)
 
+...
+```
+
+#### Send output to the console
+```go
+...
+reportBuilder := reporter.New(os.Stdout)
+...
+```
+
+#### Save output in memory
+```go
+...
+buf := bytes.NewBuffer(nil)
+reportBuilder := reporter.New(buf)
 ...
 ```
