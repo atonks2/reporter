@@ -5,6 +5,7 @@ import (
 )
 
 // Row provides the methods needed to convert a struct to a CSV row
+//
 // Example (using experimental reporter.CreateHeader() and reporter.MarshalCSV()):
 //
 //	type MyData struct {
