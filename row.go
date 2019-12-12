@@ -12,6 +12,15 @@ type Row interface {
 	Slice() []string
 }
 
+// TimeFormatString defaults to "2006-01-02T15:04:05Z07:00", but any valid time.Time format string can be used
+var timeFormatString = "2006-01-02T15:04:05Z"
+
+// SetDateTimeFormat updates the default format string to the supplied string
+// Valid formats: https://golang.org/src/time/format.go
+func SetDateTimeFormat(format string) {
+	timeFormatString = format
+}
+
 // CreateHeader uses the "csv" struct tags to build the CSV header
 func CreateHeader(v interface{}) []string {
 	ref := createReflection(v)

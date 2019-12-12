@@ -41,13 +41,10 @@ func (ref *reflection) tryCommonTypes() string {
 	return ""
 }
 
-// TimeFormatString defaults to "2006-01-02T15:04:05Z07:00", but any valid time.Time format string can be used
-var TimeFormatString = "2006-01-02T15:04:05Z07:00"
-
 func reflectTimeToString(structField *reflect.Value) string {
 	formatMethod := structField.MethodByName("Format")
 	if !formatMethod.IsZero() {
-		args := []reflect.Value{reflect.ValueOf(TimeFormatString)}
+		args := []reflect.Value{reflect.ValueOf(timeFormatString)}
 		timeVal := formatMethod.Call(args)
 		if len(timeVal) > 0 {
 			return timeVal[0].String()
