@@ -5,6 +5,20 @@ import (
 )
 
 // Row provides the methods needed to convert a struct to a CSV row
+// Example (using experimental reporter.CreateHeader() and reporter.MarshalCSV()):
+//
+//	type MyData struct {
+//		Field1 string    `csv:"field_1"`
+//		Field2 time.Time `csv:"field_2"`
+//	}
+//
+//	func (d *MyData) Header() []string {
+//		return CreateHeader(d)
+//	}
+//
+//	func (d *MyData) Slice() []string {
+//		return MarshalCSV(d)
+//	}
 type Row interface {
 	// Header should return a list of the column names to be included in the CSV report
 	Header() []string
@@ -12,16 +26,28 @@ type Row interface {
 	Slice() []string
 }
 
-// TimeFormatString defaults to "2006-01-02T15:04:05Z07:00", but any valid time.Time format string can be used
+// TimeFormatString defaults to "2006-01-02T15:04:05Z", but any valid time.Time format string can be used
 var timeFormatString = "2006-01-02T15:04:05Z"
 
-// SetDateTimeFormat updates the default format string to the supplied string
+// SetDateTimeFormat updates the default format string to the supplied string.
 // Valid formats: https://golang.org/src/time/format.go
+// This is only used by MarshalCSV.
 func SetDateTimeFormat(format string) {
 	timeFormatString = format
 }
 
 // CreateHeader uses the "csv" struct tags to build the CSV header
+// v should be a struct with "csv" tags.
+// Example:
+// 	 type MyData struct {
+//		 Field1    string     `csv:"field_1"`
+//       IgnoreMe  chan int   `csv:"-"`
+//		 Field2    time.Time  `csv:"field_2"`
+//	 }
+//
+// CreateHeader(MyData{}) will output []string{"field_1", "field_2"}, ignoring the "-" tag.
+//
+// Experimental
 func CreateHeader(v interface{}) []string {
 	ref := createReflection(v)
 	var header []string
