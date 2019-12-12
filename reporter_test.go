@@ -207,6 +207,6 @@ func (r *testRow) Header() []string {
 	return []string{"field"}
 }
 
-func (r *testRow) Slice() []string {
+func (r *testRow) Marshal() []string {
 	return []string{r.field}
 }

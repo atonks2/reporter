@@ -73,7 +73,7 @@ func (r *Reporter) WriteAll() (int, error) {
 	numRows := 0
 	for i, rowPtr := range r.rows {
 		row := *rowPtr
-		if err := r.w.Write(row.Slice()); err != nil {
+		if err := r.w.Write(row.Marshal()); err != nil {
 			return 0, fmt.Errorf("failed to write row %d - %v", i, err)
 		}
 		if err := r.Flush(); err != nil {

@@ -17,14 +17,14 @@ import (
 //		return reporter.CreateHeader(d)
 //	}
 //
-//	func (d *MyData) Slice() []string {
+//	func (d *MyData) Marshal() []string {
 //		return reporter.MarshalCSV(d)
 //	}
 type Row interface {
 	// Header should return a list of the column names to be included in the CSV report
 	Header() []string
-	// Slice should return a list of the data points to be written to the CSV report
-	Slice() []string
+	// Marshal should return a list of the data points to be written to the CSV report
+	Marshal() []string
 }
 
 // TimeFormatString defaults to "2006-01-02T15:04:05Z", but any valid time.Time format string can be used
